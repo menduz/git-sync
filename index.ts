@@ -18,6 +18,14 @@ syncFiles.forEach(file => {
   var baseDir = path.dirname(file)
   var ast = yaml.safeLoad(fs.readFileSync(file, 'utf8'))
 
+  parseAst(ast, baseDir);
+});
+
+if (syncFiles.length == 0) {
+  parseAst({}, cwd);
+}
+
+function parseAst(ast, baseDir) {
   ast.auth = ast.auth || {
     user: process.env.GIT_SYNC_USER,
     token: process.env.GIT_SYNC_TOKEN
@@ -25,13 +33,14 @@ syncFiles.forEach(file => {
 
   ast.repository = ast.repository || process.env.GIT_SYNC_REPO
   ast.pattern = ast.pattern || process.env.GIT_SYNC_PATTERN
+  ast.branch = ast.branch || process.env.GIT_SYNC_BRANCH
 
   const syncSubset: string[] = glob.sync(baseDir + '/' + (ast.pattern || "*"), { cwd: baseDir, nodir: true });
 
   syncSubset.forEach(file => operations.push(uploadFile(file, baseDir, ast)));
 
   console.log("\tFiles:\n\t\t", syncSubset.join("\n\t\t"))
-});
+}
 
 async function startOperations(operations) {
   for (var i in operations) {
