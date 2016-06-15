@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2015",
+        "diagnostics": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "inlineSourceMap": true,
+        "inlineSources": true
+    },
+    "exclude": [
+        "node_modules",
+        "!node_modules/@types",
+        "test"
+    ]
+}

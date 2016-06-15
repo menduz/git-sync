@@ -1,0 +1,19 @@
+{
+  "name": "git-pusher",
+  "version": "0.0.1",
+  "dependencies": {
+    "glob": "^7.0.3",
+    "js-yaml": "^3.6.1",
+    "superagent": "^2.0.0",
+    "yargs": "^4.7.1"
+  },
+  "bin": {
+    "git-sync": "index.js"
+  },
+  "devDependencies": {
+    "typescript": "^1.8.10"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/tsc -p tsconfig.json"
+  }
+}
